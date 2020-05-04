@@ -1,0 +1,26 @@
+Driver Dan
+Driver Alex
+Driver Bob
+Trip Dan 07:15 07:45 17.3
+Trip Dan 06:12 06:32 21.8
+Trip Alex 12:01 13:16 42.0
+
+
+Trip Dan 07:15 08:15 99
+Trip Dan 07:15 08:15 100
+Trip Dan 07:15 08:15 100.1
+Trip Dan 07:15 08:15 5
+Trip Dan 07:15 08:15 4.9
+Trip Dan 07:15 06:15 50
+Driver  
+Trip Alex 24:00 24:59 59.1
+Trip Alex 4:00 4:59 59.1
+Driver Tim
+Trip Alex 5:00 3:59 59.1
+Trip Bob 00:00 23:59 205
+Trip Bob 00:00 24:00 205
+Driver Jerry
+Trip Jerry 00:01 1:00 50
+Driver
+Trip Bob 00:00 1:01 95
+Trip Mary 00:01 1:00 50
