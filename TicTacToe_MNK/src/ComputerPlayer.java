@@ -21,16 +21,25 @@ public class ComputerPlayer {
 		this.q = q;
 		this.board = board;
 	}
-	
+	HashMap<String, Game> memo = new HashMap<>();
 	public void nextMove() {
 		LinkedList<int[]> drawList = new LinkedList<>();
-		
+		boolean full = true;
 		for (int i = 0 ; i < M; i ++ ) {
 			for (int j = 0 ; j < N; j ++ ) {
+
 				if (board.isAvailable(i, j)) {
+					full = false;
+					if (board.win(i, j , p)) {
+						System.out.println("CPU "+p+" wins");
+						board.put(i, j, p);						
+						return ;
+					}
+					
 					Game res = dfs(i, j, p, q);
 					if (res == Game.WIN) {
-						board.put(i, j, p);
+						System.out.println("CPU "+p+" will win");
+						board.put(i, j, p);						
 						return ;
 					}
 					else if (res == Game.LOSS) {
@@ -42,6 +51,10 @@ public class ComputerPlayer {
 				}
 			}
 		}
+		if (full) {
+			System.out.println("Draw!");
+			return;
+		}
 		board.put(drawList.getFirst()[0], drawList.getFirst()[1], p);	
 	}	
 	public Game dfs(int x, int y, char p, char q) {
@@ -49,14 +62,23 @@ public class ComputerPlayer {
 			return Game.WIN;			
 		}
 		board.put(x, y, p);
+		
+		String str = board.serialize();
+		if (memo.containsKey(str)) {
+			board.put(x, y, 'e');
+			return memo.get(str);
+		}
+				
 		boolean win = true;
+		boolean full = true;
 		for (int i = 0 ; i < M; i ++ ) {
 			for (int j = 0 ; j < N; j ++ ) {
 				if (board.isAvailable(i, j)) {
-
+					full = false;
 					Game res = dfs(i, j, q, p);
 					if (res == Game.WIN) {
 						board.put(x, y, 'e');
+						memo.put(str, Game.LOSS);
 						return Game.LOSS;
 					}
 					else if (res == Game.DRAW) {
@@ -65,10 +87,14 @@ public class ComputerPlayer {
 				}				
 			}
 		}
-		board.put(x, y, 'e');		
-		if (!win) {
+		board.put(x, y, 'e');	
+		
+		if (full||!win) {
+			//System.out.println("draw");
+			memo.put(str, Game.DRAW);
 			return Game.DRAW;
 		}
+		memo.put(str, Game.WIN);
 		return Game.WIN;
 	}
 }

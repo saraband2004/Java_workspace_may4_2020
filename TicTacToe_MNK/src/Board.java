@@ -21,6 +21,7 @@ class Board {
 		for (int i = 0; i < M ; i ++ ) {
 			System.out.println(Arrays.toString(brd[i]));
 		}
+		System.out.println("-------------------");
 	}
 	public boolean isAvailable(int x, int y) {
 		if (brd[x][y] != 'e'){
@@ -29,10 +30,7 @@ class Board {
 		return true;
 	}
 	public boolean put(int x, int y, char p) {
-		if (brd[x][y] != 'e'){
-			return false;
-		}
-		brd[x][y] = p;
+ 		brd[x][y] = p;
 		return true;
 	}
 	
@@ -62,10 +60,17 @@ class Board {
 				}
 			}
 			if (count >= K){
-				System.out.println(p + " wins!!!\n");
+				//System.out.println(p + " wins!!!\n");
 				return true;
 			}
 		}				
 		return false;
+	}
+	public String serialize() {
+		String res = "";
+		for (char[] line: brd) {
+			res = res + new String(line);			
+		}
+		return res;
 	}
 }
